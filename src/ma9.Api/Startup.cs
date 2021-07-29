@@ -2,7 +2,6 @@ using ma9.Api.Configuration;
 using ma9.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,12 +11,12 @@ namespace ma9.Api
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -25,12 +24,9 @@ namespace ma9.Api
             {
                 options.UseSqlServer(Configuration.GetConnectionString("MeuDbContext"));
             });
+            services.AddIdentityConfiguration(Configuration);
+            services.WebApiConfig();
             services.AddAutoMapper(typeof(Startup));
-            services.AddControllers();
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
             services.ResolveDependencies();
         }
 
@@ -40,13 +36,10 @@ namespace ma9.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

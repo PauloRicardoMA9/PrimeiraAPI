@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "At20g2V53KTf/829zHhRmYbZjSMDdnxvf5q/aFNsyFrqecOh1Ov9Q6D0TW0Vk/TrBpCk37vAajGNgh1jyMeRvg==",
+  "dgSpecHash": "Dldy8mNGSd5MdK1YCJ+I6IK7Z2Em61v44OAulhRpdDaobziqMLWmoqqb9QY+QbeZGD2Yt6L4mRo8jBLunAKfJw==",
   "success": true,
   "projectFilePath": "C:\\Users\\paulo\\Documents\\Developer\\Projetos\\.Net\\3 - Rest API\\MinhaApiCompleta\\MinhaApiCompleta\\src\\ma9.Api\\ma9.Api.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\paulo\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",
     "C:\\Users\\paulo\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.4\\microsoft.aspnetcore.cryptography.internal.3.1.4.nupkg.sha512",
     "C:\\Users\\paulo\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.4\\microsoft.aspnetcore.cryptography.keyderivation.3.1.4.nupkg.sha512",
+    "C:\\Users\\paulo\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\3.1.4\\microsoft.aspnetcore.identity.entityframeworkcore.3.1.4.nupkg.sha512",
     "C:\\Users\\paulo\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\3.1.4\\microsoft.aspnetcore.identity.ui.3.1.4.nupkg.sha512",
     "C:\\Users\\paulo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\paulo\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

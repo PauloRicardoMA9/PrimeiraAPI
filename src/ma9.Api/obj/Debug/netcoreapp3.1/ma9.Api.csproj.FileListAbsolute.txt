@@ -71,3 +71,4 @@ C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\M
 C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\obj\Debug\netcoreapp3.1\ma9.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
