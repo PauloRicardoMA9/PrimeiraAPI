@@ -72,3 +72,10 @@ C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\M
 C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\obj\Debug\netcoreapp3.1\ma9.Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\paulo\Documents\Developer\Projetos\.Net\3 - Rest API\MinhaApiCompleta\MinhaApiCompleta\src\ma9.Api\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
