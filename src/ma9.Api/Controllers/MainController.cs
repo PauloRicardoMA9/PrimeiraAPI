@@ -18,6 +18,24 @@ namespace ma9.Api.Controllers
             _notificador = notificador;
         }
 
+        protected bool OperacaoValida()
+        {
+            return !_notificador.TemNotificacao();
+        }
+
+        protected ActionResult CustomResponse(object result = null)
+        {
+            if (OperacaoValida())
+            {
+                return Ok(new
+                {
+                    data = result
+                });
+            }
+
+            return ReturnBadRequest();
+        }
+
         protected ActionResult NotificarErroModelInvalida(ModelStateDictionary modelState)
         {
             var erros = modelState.Values.SelectMany(e => e.Errors);

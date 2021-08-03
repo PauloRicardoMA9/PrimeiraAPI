@@ -72,6 +72,10 @@ namespace ma9.Api.Controllers
                 return ReturnBadRequest();
             }
             var produtoAtualizacao = await ObterProduto(id);
+            if (produtoAtualizacao == null)
+            {
+                return NotFound();
+            }
             if (string.IsNullOrEmpty(produtoViewModel.Imagem))
             {
                 produtoViewModel.Imagem = produtoAtualizacao.Imagem;
@@ -104,8 +108,7 @@ namespace ma9.Api.Controllers
             var produto = await ObterProdutoFornecedor(id);
             if (produto == null)
             {
-                NotificarErro("O id informado não corresponde a nenhum produto cadastrado");
-                return ReturnNotFound();
+                return NotFound();
             }
             await _produtoService.Remover(id);
             return NoContent();
