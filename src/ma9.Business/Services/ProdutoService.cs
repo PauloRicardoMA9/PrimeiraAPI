@@ -19,7 +19,6 @@ namespace ma9.Business.Services
         public async Task Adicionar(Produto produto)
         {
             if (!ExecutarValidacao(new ProdutoValidation(), produto)) return;
-
             await _produtoRepository.Adicionar(produto);
         }
 

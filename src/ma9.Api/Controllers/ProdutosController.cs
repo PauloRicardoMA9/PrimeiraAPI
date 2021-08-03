@@ -17,10 +17,7 @@ namespace ma9.Api.Controllers
         private readonly IProdutoService _produtoService;
         private readonly IMapper _mapper;
 
-        public ProdutosController(INotificador notificador,
-                                  IProdutoRepository produtoRepository,
-                                  IProdutoService produtoService,
-                                  IMapper mapper) : base(notificador)
+        public ProdutosController(INotificador notificador, IProdutoRepository produtoRepository, IProdutoService produtoService, IMapper mapper) : base(notificador)
         {
             _produtoRepository = produtoRepository;
             _produtoService = produtoService;
@@ -45,44 +42,46 @@ namespace ma9.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProdutoViewModel>> Adicionar(ProdutoViewModel produtoViewModel)
+        public async Task<ActionResult> Adicionar(ProdutoViewModel produtoViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return CustomResponse(ModelState);
+                return NotificarErroModelInvalida(ModelState);
             }
             var imagemNome = Guid.NewGuid() + "_" + produtoViewModel.Imagem;
-            if(!UploadArquivo(produtoViewModel.ImagemUpload, imagemNome))
+            var uploadArquivoSucesso = UploadArquivo(produtoViewModel.ImagemUpload, imagemNome);
+            if (!uploadArquivoSucesso)
             {
-                return CustomResponse(produtoViewModel);
+                return ReturnBadRequest();
             }
             produtoViewModel.Imagem = imagemNome;
             await _produtoService.Adicionar(_mapper.Map<Produto>(produtoViewModel));
-            return CustomResponse(produtoViewModel);
+            return CreatedAtAction("Adicionar", null);
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Atualizar(Guid id, ProdutoViewModel produtoViewModel)
+        public async Task<ActionResult> Atualizar(Guid id, ProdutoViewModel produtoViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return NotificarErroModelInvalida(ModelState);
+            }
             if (id != produtoViewModel.Id)
             {
                 NotificarErro("Os ids informados não são iguais!");
-                return CustomResponse();
+                return ReturnBadRequest();
             }
-
             var produtoAtualizacao = await ObterProduto(id);
-
             if (string.IsNullOrEmpty(produtoViewModel.Imagem))
+            {
                 produtoViewModel.Imagem = produtoAtualizacao.Imagem;
-
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
+            }
             if (produtoViewModel.ImagemUpload != null)
             {
                 var imagemNome = Guid.NewGuid() + "_" + produtoViewModel.Imagem;
                 if (!UploadArquivo(produtoViewModel.ImagemUpload, imagemNome))
                 {
-                    return CustomResponse(ModelState);
+                    return ReturnBadRequest();
                 }
 
                 produtoAtualizacao.Imagem = imagemNome;
@@ -96,7 +95,7 @@ namespace ma9.Api.Controllers
 
             await _produtoService.Atualizar(_mapper.Map<Produto>(produtoAtualizacao));
 
-            return CustomResponse(produtoViewModel);
+            return NoContent();
         }
 
         [HttpDelete("{id:guid}")]
@@ -105,10 +104,11 @@ namespace ma9.Api.Controllers
             var produto = await ObterProdutoFornecedor(id);
             if (produto == null)
             {
-                return NotFound();
+                NotificarErro("O id informado não corresponde a nenhum produto cadastrado");
+                return ReturnNotFound();
             }
             await _produtoService.Remover(id);
-            return CustomResponse(produto);
+            return NoContent();
         }
 
         private async Task<ProdutoViewModel> ObterProdutoFornecedor(Guid id)

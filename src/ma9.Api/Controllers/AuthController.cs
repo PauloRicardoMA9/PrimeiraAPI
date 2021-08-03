@@ -19,10 +19,7 @@ namespace ma9.Api.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        public AuthController(INotificador notificador,
-                              SignInManager<IdentityUser> signInManager,
-                              UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings) : base(notificador)
+        public AuthController(INotificador notificador, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings) : base(notificador)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -34,7 +31,7 @@ namespace ma9.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return CustomResponse(ModelState);
+                return NotificarErroModelInvalida(ModelState);
             }
             var user = new IdentityUser
             {
@@ -46,13 +43,13 @@ namespace ma9.Api.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return CustomResponse(GerarJwt());
+                return CreatedAtAction("Registrar", "JWT: " + GerarJwt());
             }
             foreach (var error in result.Errors)
             {
                 NotificarErro(error.Description);
             }
-            return CustomResponse(registerUser);
+            return ReturnBadRequest();
         }
 
         [HttpPost("entrar")]
@@ -60,20 +57,20 @@ namespace ma9.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return CustomResponse(ModelState);
+                return NotificarErroModelInvalida(ModelState);
             }
             var result = await _signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
             if (result.Succeeded)
             {
-                return CustomResponse(GerarJwt());
+                return CreatedAtAction("Login", "JWT: " + GerarJwt());
             }
             if (result.IsLockedOut)
             {
                 NotificarErro("Usuário temporariamente bloqueado por tentativas inválidas");
-                return CustomResponse(loginUser);
+                return ReturnBadRequest();
             }
             NotificarErro("Usuário ou Senha incorretos");
-            return CustomResponse(loginUser);
+            return ReturnBadRequest();
         }
 
         private string GerarJwt()

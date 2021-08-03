@@ -71,7 +71,7 @@ namespace ma9.Business.Services
         {
             if (_fornecedorRepository.ObterFornecedorProdutosEndereco(id).Result.Produtos.Any())
             {
-                Notificar("O fornecedor possui produtos cadastrados!");
+                Notificar("O fornecedor possui produtos cadastrados, exclua os produtos antes de excluir o fornecedor");
                 return false;
             }
 
