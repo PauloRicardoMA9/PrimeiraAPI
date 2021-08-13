@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DevIO.Api.Extensions;
+using ma9.Api.Extensions;
 using ma9.Api.ViewModels;
 using ma9.Business.Intefaces;
 using ma9.Business.Models;
@@ -20,7 +20,12 @@ namespace ma9.Api.Controllers
         private readonly IFornecedorService _fornecedorService;
         private readonly IMapper _mapper;
 
-        public FornecedoresController(IFornecedorRepository fornecedorRepository, IMapper mapper, IFornecedorService fornecedorService, INotificador notificador, IEnderecoRepository enderecoRepository) : base(notificador)
+        public FornecedoresController(IFornecedorRepository fornecedorRepository,
+                                      IMapper mapper,
+                                      IFornecedorService fornecedorService,
+                                      INotificador notificador,
+                                      IEnderecoRepository enderecoRepository,
+                                      IUser user) : base(notificador, user)
         {
             _fornecedorRepository = fornecedorRepository;
             _mapper = mapper;
@@ -50,15 +55,12 @@ namespace ma9.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<FornecedorViewModel>> Adicionar(FornecedorViewModel fornecedorViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return NotificarErroModelInvalida(ModelState);
-            }
             var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
             if (await _fornecedorService.Adicionar(fornecedor))
             {
                 return CreatedAtAction("Adicionar", null);
             }
+
                 return ReturnBadRequest();
         }
 
@@ -104,9 +106,13 @@ namespace ma9.Api.Controllers
         }
 
         [HttpGet("endereco/{id:guid}")]
-        public async Task<EnderecoViewModel> ObterEnderecoPorId(Guid id)
+        public async Task<ActionResult<EnderecoViewModel>> ObterEnderecoPorId(Guid id)
         {
             var enderecoViewModel = _mapper.Map<EnderecoViewModel>(await _enderecoRepository.ObterPorId(id));
+            if (enderecoViewModel == null)
+            {
+                return NotFound();
+            }
             return enderecoViewModel;
         }
 

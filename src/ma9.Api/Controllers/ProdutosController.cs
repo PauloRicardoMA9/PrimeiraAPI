@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using ma9.Api.Extensions;
 using ma9.Api.ViewModels;
 using ma9.Business.Intefaces;
 using ma9.Business.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ma9.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ProdutosController : MainController
     {
@@ -17,7 +20,11 @@ namespace ma9.Api.Controllers
         private readonly IProdutoService _produtoService;
         private readonly IMapper _mapper;
 
-        public ProdutosController(INotificador notificador, IProdutoRepository produtoRepository, IProdutoService produtoService, IMapper mapper) : base(notificador)
+        public ProdutosController(INotificador notificador,
+                                  IProdutoRepository produtoRepository,
+                                  IProdutoService produtoService,
+                                  IMapper mapper,
+                                  IUser user) : base(notificador, user)
         {
             _produtoRepository = produtoRepository;
             _produtoService = produtoService;
@@ -41,6 +48,7 @@ namespace ma9.Api.Controllers
             return produtoViewModel;
         }
 
+        [ClaimsAuthorize("Produto", "Adicionar")]
         [HttpPost]
         public async Task<ActionResult> Adicionar(ProdutoViewModel produtoViewModel)
         {
@@ -59,6 +67,7 @@ namespace ma9.Api.Controllers
             return CreatedAtAction("Adicionar", null);
         }
 
+        [ClaimsAuthorize("Produto", "Atualizar")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult> Atualizar(Guid id, ProdutoViewModel produtoViewModel)
         {
@@ -102,6 +111,7 @@ namespace ma9.Api.Controllers
             return NoContent();
         }
 
+        [ClaimsAuthorize("Produto", "Excluir")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Excluir(Guid id)
         {
