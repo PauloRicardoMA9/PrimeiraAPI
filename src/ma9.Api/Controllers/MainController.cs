@@ -2,7 +2,6 @@
 using ma9.Business.Notificacoes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 
@@ -21,7 +20,7 @@ namespace ma9.Api.Controllers
         {
             _notificador = notificador;
             AppUser = appUser;
-            
+
             if (AppUser.IsAuthenticated())
             {
                 UsuarioId = AppUser.GetUserId();

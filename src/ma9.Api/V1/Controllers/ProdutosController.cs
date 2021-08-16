@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ma9.Api.Controllers;
 using ma9.Api.Extensions;
 using ma9.Api.ViewModels;
 using ma9.Business.Intefaces;
@@ -10,10 +11,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace ma9.Api.Controllers
+namespace ma9.Api.V1.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class ProdutosController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;

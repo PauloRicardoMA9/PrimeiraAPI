@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "a6NM7Pa568t0jfx/2m+O1+2S51W2NzVB6im11kjrr27ctCVfeR9jfF9iOtDUOkG+YIuZzpdOkseGcDaA5d+YlA==",
+  "dgSpecHash": "p1Fywkkr7oeUHDkbGp2+BI/6PJ2a/hbFgx7U8j59GXYQUKzLDT7uWtwmECB5/jnAkv5GVPeXrGU54raOF74mhA==",
   "success": true,
   "projectFilePath": "C:\\Users\\paulo\\Documents\\Developer\\Projetos\\.Net\\3 - Rest API\\MinhaApiCompleta\\MinhaApiCompleta\\src\\ma9.Data\\ma9.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\paulo\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",
+    "C:\\Users\\paulo\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.0.0\\microsoft.aspnetcore.mvc.versioning.5.0.0.nupkg.sha512",
+    "C:\\Users\\paulo\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning.apiexplorer\\5.0.0\\microsoft.aspnetcore.mvc.versioning.apiexplorer.5.0.0.nupkg.sha512",
     "C:\\Users\\paulo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\paulo\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\paulo\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

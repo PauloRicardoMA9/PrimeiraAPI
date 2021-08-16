@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ma9.Api.Controllers;
 using ma9.Api.Extensions;
 using ma9.Api.ViewModels;
 using ma9.Business.Intefaces;
@@ -9,10 +10,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ma9.Api.Controllers
+namespace ma9.Api.V1.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class FornecedoresController : MainController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
@@ -33,6 +35,7 @@ namespace ma9.Api.Controllers
             _enderecoRepository = enderecoRepository;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<FornecedorViewModel>> ObterTodos()
         {
@@ -51,7 +54,7 @@ namespace ma9.Api.Controllers
             return fornecedorViewModel;
         }
 
-        [ClaimsAuthorize("Fornecedor","Adicionar")]
+        [ClaimsAuthorize("Fornecedor", "Adicionar")]
         [HttpPost]
         public async Task<ActionResult<FornecedorViewModel>> Adicionar(FornecedorViewModel fornecedorViewModel)
         {
@@ -61,7 +64,7 @@ namespace ma9.Api.Controllers
                 return CreatedAtAction("Adicionar", null);
             }
 
-                return ReturnBadRequest();
+            return ReturnBadRequest();
         }
 
         [ClaimsAuthorize("Fornecedor", "Atualizar")]
@@ -82,7 +85,7 @@ namespace ma9.Api.Controllers
                 return NotFound();
             }
             var fornecedor = _mapper.Map<Fornecedor>(fornecedorViewModel);
-            if(await _fornecedorService.Atualizar(fornecedor))
+            if (await _fornecedorService.Atualizar(fornecedor))
             {
                 return NoContent();
             }
@@ -120,21 +123,30 @@ namespace ma9.Api.Controllers
         [HttpPut("endereco/{id:guid}")]
         public async Task<IActionResult> AtualizarEndereco(Guid id, EnderecoViewModel enderecoViewModel)
         {
-            if (!ModelState.IsValid) 
-            { 
-                return NotificarErroModelInvalida(ModelState); 
+            if (!ModelState.IsValid)
+            {
+                return NotificarErroModelInvalida(ModelState);
             }
             if (id != enderecoViewModel.Id)
             {
                 NotificarErro("O id informado não é o mesmo que foi passado na query");
                 return ReturnBadRequest();
             }
-            if (await ObterEnderecoPorId(id) == null)
+            var enderecoObtido = await _enderecoRepository.ObterPorId(id);
+            if (enderecoObtido == null)
             {
                 return NotFound();
             }
-            var endereco = _mapper.Map<Endereco>(enderecoViewModel);
-            await _fornecedorService.AtualizarEndereco(endereco);
+
+            enderecoObtido.Logradouro = enderecoViewModel.Logradouro;
+            enderecoObtido.Numero = enderecoViewModel.Numero;
+            enderecoObtido.Complemento = enderecoViewModel.Complemento;
+            enderecoObtido.Bairro = enderecoViewModel.Bairro;
+            enderecoObtido.Cep = enderecoViewModel.Cep;
+            enderecoObtido.Cidade = enderecoViewModel.Cidade;
+            enderecoObtido.Estado = enderecoViewModel.Estado;
+
+            await _fornecedorService.AtualizarEndereco(enderecoObtido);
             return NoContent();
         }
 
