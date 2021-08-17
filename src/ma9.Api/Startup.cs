@@ -2,6 +2,7 @@ using ma9.Api.Configuration;
 using ma9.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,11 +27,12 @@ namespace ma9.Api
             });
             services.AddIdentityConfiguration(Configuration);
             services.WebApiConfig();
+            services.AddSwaggerConfig();
             services.AddAutoMapper(typeof(Startup));
             services.ResolveDependencies();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -50,6 +52,7 @@ namespace ma9.Api
             {
                 endpoints.MapControllers();
             });
+            app.UseSwaggerConfig(provider);
         }
     }
 }
